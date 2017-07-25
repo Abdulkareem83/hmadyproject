@@ -27,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
 
         //The user can see the dashboard
         Gate::define('use-dashboard', function ($user) {
-            return array_in($user->role, ['teacher', 'admin']);
+            return  in_array($user->role, ['teacher', 'admin']);
         });
     }
 }
