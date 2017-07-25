@@ -16,7 +16,7 @@ class Teacher
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->role != 'teacher') {
+        if (Auth::user()->role == 'student') {
             return redirect('/');
         }
 
