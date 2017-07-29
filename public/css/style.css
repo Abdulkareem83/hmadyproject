@@ -27,3 +27,6 @@ theme. But don't modify style-main.css file.
 html[dir="rtl"] .menuzord-menu > li{
 	margin-left: 5px;
 }
+.service-block{
+	min-height: 425px;
+}

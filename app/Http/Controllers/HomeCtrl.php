@@ -16,9 +16,8 @@ class HomeCtrl extends Controller
      */
     public function index()
     {
-    	$mainTitle = "Hamdy";
-    	$title = "Home";
+    	$title = "Home page";
     	return view('home.index')
-    				->with(compact('title', 'mainTitle'));
+    				->with(compact('title'));
     }
 }

@@ -10,6 +10,6 @@ class Course extends Model
     //
 
     public function getPictureAttribute($picture){
-    	return URL::to('/').'/public/uploads/'.$picture;
+    	return URL::to('uploads/'.$picture);
     }
 }
