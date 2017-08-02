@@ -30,3 +30,17 @@ html[dir="rtl"] .menuzord-menu > li{
 .service-block{
 	min-height: 425px;
 }
+#coursecontentAccordion ul.list-group {
+    border: 1px solid #202c45;
+    margin-top: -1px;
+    border-top: 0;
+}
+#coursecontentAccordion li.list-group-item {
+    margin-bottom: 0;
+    border-top: 0;
+    margin-top: 0px;
+}
+#coursecontentAccordion li.list-group-item a {
+    color: #f2184f;
+    cursor: pointer;
+}

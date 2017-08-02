@@ -91,5 +91,6 @@
   	</div>
   	<!-- end wrapper -->
   	@include('layouts.includes.homeScript')
+    @yield('script')
  </body>
 </html>

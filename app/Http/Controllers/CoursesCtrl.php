@@ -200,6 +200,8 @@ class CoursesCtrl extends Controller
         $mainTitle = "courses";
         $title = "all courses";
         $course = Course::find($id);
+        if (is_null($course))
+            return redirect('/');
         return view('home.courses.single')
                 ->with(compact('title', 'mainTitle', 'course'));
     }
