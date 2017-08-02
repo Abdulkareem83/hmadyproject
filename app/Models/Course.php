@@ -9,7 +9,20 @@ class Course extends Model
 {
     //
 
-    public function getPictureAttribute($picture){
-    	return URL::to('/').'/public/uploads/'.$picture;
+    public function getPictureAttribute($picture)
+    {
+    	return URL::to('uploads/'.$picture);
+    }
+
+    public function chapters()
+    {
+    	return $this->hasMany('App\Models\Chapter', 'course_id', 'id');
+    }
+
+    public function introVideo()
+    {
+    	return Self::join('chapters', 'courses.id', '=', 'chapters.course_id')
+    			->join('videos', 'videos.chapter_id', '=', 'chapters.id')
+    			->first();
     }
 }

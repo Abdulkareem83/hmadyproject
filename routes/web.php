@@ -16,7 +16,8 @@ Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'HomeCtrl@index')->name('home');
-
+Route::get('courses', 'CoursesCtrl@showCoursesPage')->name('home');
+Route::get('courses/single/{id}', 'CoursesCtrl@showSingleCoursePage')->name('single-course');
 Route::group(['middleware' => 'auth'], function() {
     //
     Route::get('profile', 'AccountCtrl@showProfilePage')->name('profile');

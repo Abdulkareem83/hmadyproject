@@ -86,7 +86,8 @@
           <ul class="menuzord-menu">
             <li class="active"><a href="#home">{{ trans('lang.home') }}</a>
             </li>
-            <li><a href="#">{{ trans('lang.courses') }} </a>
+            <li>
+              <a href="{{ url('courses') }}">{{ trans('lang.courses') }} </a>
             </li>
             <li><a href="#">{{ trans('lang.blogs') }}</a>
             </li>

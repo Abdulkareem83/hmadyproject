@@ -171,6 +171,43 @@ class CoursesCtrl extends Controller
     }
 
     /**
+     * showCoursesPage. To show courses page
+     *
+     * @param 
+     * @return \Illuminate\Http\Response
+     * @author Abdulkareem Mohammed <a.esawy.sapps@gmail.com>
+     * @copyright Smart Applications Co. <www.smartapps-ye.com>
+     */
+    public function showCoursesPage()
+    {
+        $mainTitle = "courses";
+        $title = "all courses";
+        $courses = Course::paginate(10);
+        return view('home.courses.index')
+                ->with(compact('title', 'mainTitle', 'courses'));
+    }
+
+    /**
+     * showSingleCoursePage. To show single courses page.
+     *
+     * @param 
+     * @return \Illuminate\Http\Response
+     * @author Abdulkareem Mohammed <a.esawy.sapps@gmail.com>
+     * @copyright Smart Applications Co. <www.smartapps-ye.com>
+     */
+    public function showSingleCoursePage($id)
+    {
+        $mainTitle = "courses";
+        $title = "all courses";
+        $course = Course::find($id);
+        if (is_null($course))
+            return redirect('/');
+        return view('home.courses.single')
+                ->with(compact('title', 'mainTitle', 'course'));
+    }
+
+
+    /**
      * _storeCourse. To store course into database
      *
      * @param 

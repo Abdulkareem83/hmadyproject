@@ -10,7 +10,7 @@
 <meta name="author" content="ThemeMascot" />
 
 <!-- Page Title -->
-<title>{{ $mainTitle ?: '' }} | {{ $title ?: '' }}</title>
+<title>Hamdy {{ isset($mainTitle) ? " | " . $mainTitle : '' }} {{ isset($title) ? " | " . $title: '' }}</title>
 
 <!-- Favicon and Touch Icons -->
 <link href="{{ url('images') }}/favicon.png" rel="shortcut icon" type="image/png">
@@ -91,5 +91,6 @@
   	</div>
   	<!-- end wrapper -->
   	@include('layouts.includes.homeScript')
+    @yield('script')
  </body>
 </html>

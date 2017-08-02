@@ -105,7 +105,7 @@ if(! function_exists('uploadFile')) {
       */
     function uploadFile($file = null , $path = null)
     {
-        $path = (isset($path) && $path != null) ? $path : 'public/uploads'; # check for path ...
+        $path = (isset($path) && $path != null) ? $path : 'uploads'; # check for path ...
         if ($file->isValid()) {
             $extension = $file->getClientOriginalExtension();
             $file_name = getToken() . '.' . $extension;
