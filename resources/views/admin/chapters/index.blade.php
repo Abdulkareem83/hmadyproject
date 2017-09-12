@@ -8,6 +8,9 @@
 					{{ trans('lang.'.$title) }} <em>({{ $course->name }}) .</em> 
 				</div>
 				<div class="pull-right">
+					<a class="btn btn-sm btn-info" href="{{ route('all-courses') }}">
+						{{ trans('lang.allCourses') }}
+					</a>
 					<a class="btn btn-sm btn-info" href="{{ route('create-chapter', ['courseId' => $course->id]) }}">
 						{{ trans('lang.addNewChapter') }}
 					</a>
