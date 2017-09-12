@@ -44,3 +44,11 @@ html[dir="rtl"] .menuzord-menu > li{
     color: #f2184f;
     cursor: pointer;
 }
+.panel-group .panel-title a{
+    color: #fff;
+    background-color: #202c45;
+}
+.panel-group .panel-title a::after{
+    color: #fff;
+    background: #f2184f;
+}
