@@ -1,3 +1,6 @@
 .mw125{
 	min-width: 125px !important;
 }
+li.select2-selection__choice {
+    color: #222d32 !important;
+}

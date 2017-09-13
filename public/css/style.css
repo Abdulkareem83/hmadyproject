@@ -44,3 +44,17 @@ html[dir="rtl"] .menuzord-menu > li{
     color: #f2184f;
     cursor: pointer;
 }
+.panel-group .panel-title a{
+    color: #fff;
+    background-color: #202c45;
+}
+.courses-page .panel-group .panel-title a::after{
+    color: #fff;
+    background: #f2184f;
+}
+.courses-page .widget ul.list li.active{
+    border-color: #202c45;
+}
+.courses-page .widget ul.list li.active a{
+    color: #202c45;
+}

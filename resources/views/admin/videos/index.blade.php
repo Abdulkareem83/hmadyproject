@@ -8,6 +8,9 @@
 					{{ trans('lang.'.$title) }} <em>({{ $chapter->name }})</em> 
 				</div>
 				<div class="pull-right">
+					<a class="btn btn-sm btn-info" href="{{ route('all-chapters', ['courseId' => $chapter->course_id]) }}">
+						{{ trans('lang.chapters') }}
+					</a>
 					<a class="btn btn-sm btn-info" href="{{ route('create-video', ['chapterId' => $chapter->id]) }}">
 						{{ trans('lang.addNewVideo') }}
 					</a>
@@ -21,7 +24,6 @@
 								<tr>
 									<th>#</th>
 									<th>{{ trans('lang.name') }}</th>
-									<th>{{ trans('lang.link') }}</th>
 									<th>{{ trans('lang.chapter') }}</th>
 									<th class="mw125">
 										{{ trans('lang.actions') }}
@@ -36,9 +38,6 @@
 										</td>
 										<td>
 											{{ $video->name }}
-										</td>
-										<td>
-											{{ $video->link }}
 										</td>
 										<td>
 											{{ $video->chapter }}

@@ -25,4 +25,8 @@ class Course extends Model
     			->join('videos', 'videos.chapter_id', '=', 'chapters.id')
     			->first();
     }
+
+    public function categories(){
+        return $this->belongsToMany('App\Models\Category', 'category_courses', 'course_id', 'category_id');
+    }
 }

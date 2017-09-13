@@ -1,68 +1,75 @@
 @extends('layouts.homeLayout')
 
 @section('content')
-	<section>
-	  <div class="container mt-30 mb-30 pt-30 pb-30">
-	    <div class="row blog-posts">
-	      <div class="col-md-12">
-	        <!-- Blog Masonry -->
-	        <div id="grid" class="gallery-isotope grid-3 masonry gutter-30 clearfix">
-	          <!-- Blog Item Start -->
-	         	@if (count($courses))
-	         		@foreach ($courses as $course)
-			          <div class="gallery-item">
-			            <article class="post clearfix mb-30 bg-lighter">
-			              <div class="entry-header">
-			                <div class="post-thumb thumb"> 
-			                  <img src="{{ $course->picture }}" height="255" alt="{{ $course->name }}" class="img-responsive img-fullwidth"> 
-			                </div>
-			              </div>
-			              <div class="entry-content border-1px p-20 pl-10">
-			                <div class="entry-meta media mt-0 no-bg no-border">
-			                  <div class="entry-date media-left text-center flip bg-theme-colored pt-5 pl-15 pb-5 pr-15">
-			                    <ul>
-			                      <li class="font-16 text-white font-weight-600">28</li>
-			                      <li class="font-12 text-white text-uppercase">Feb</li>
-			                    </ul>
-			                  </div>
-			                  <div class="media-body pr-15">
-			                    <div class="event-content pull-left flip">
-			                      	<h4 class="entry-title text-white text-uppercase m-0 mt-5">
-			                      		<a href="{{ route('single-course', ['id' => $course->id]) }}">
-			                      			{{ $course->name }}
-			                      		</a>
-			                      	</h4>
-			                      <span class="mb-10 text-gray-darkgray ml-10 font-13">
-			                      	<i class="fa fa-commenting-o ml-5 text-theme-colored"></i> 214 تعليق</span>                       
-			                      <span class="mb-10 text-gray-darkgray ml-10 font-13">
-			                      	<i class="fa fa-heart-o ml-5 text-theme-colored"></i> 895 اعجاب
-			                      </span>                       
-			                    </div>
-			                  </div>
-			                </div>
-			                <p class="mt-10">
-			                	{{ str_limit($course->description) }}
-			                </p>
-			                <a href="{{ route('single-course', ['id' => $course->id]) }}" class="btn-read-more">
-			                	{{ trans('lang.more') }}
-			                </a>
-			                <div class="clearfix"></div>
-			              </div>
-			            </article>
+	<!-- Section: Course list -->
+	<section class="courses-page">
+	  <div class="container">
+	    <div class="row">
+	      <div class="col-md-9 blog-pull-right">
+	        @if (count($courses))
+         		@foreach ($courses as $course)
+			        <div class="row mb-15">
+			          <div class="col-sm-6 col-md-4">
+			            <div class="thumb">
+			            	<img alt="featured project" src="{{ $course->picture }}" class="img-fullwidth">
+			            </div>
 			          </div>
-			        @endforeach
-		        @else
-		        	{{ trans('lang.no_courses_yet') }}
-		        @endif
-			        
-	          <!-- Blog Item End -->
+			          <div class="col-sm-6 col-md-8">
+			            <h4 class="line-bottom mt-0 mt-sm-20">{{ $course->name }}</h4>
+			            <ul class="review_text list-inline">
+			              <li><h4 class="mt-0"><span class="text-theme-color-2">Price :</span> $125</h4></li>
+			              <li>
+			                <div class="star-rating" title="Rated 4.50 out of 5"><span style="width: 90%;">4.50</span></div>
+			              </li>
+			            </ul>
+			            <p>
+			            	{{ str_limit($course->description, 300) }}
+			            </p>
+			            <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="page-courses-accounting-technologies.html">view details</a>
+			          </div>
+			        </div>
+			        <hr>
+			    @endforeach
+			@else
+				{{ trans('lang.no_courses_yet') }}
+			@endif
+	      </div>
+	      <div class="col-md-3">
+	        <div class="sidebar sidebar-left mt-sm-30">
+	          <div class="widget">
+	            <h5 class="widget-title line-bottom"> بحث  <span class="text-theme-color-2">الدورات</span></h5>
+	            <div class="search-form">
+	              <form>
+	                <div class="input-group">
+	                  <input type="text" placeholder="Click to Search" class="form-control search-input">
+	                  <span class="input-group-btn">
+	                  <button type="submit" class="btn search-button"><i class="fa fa-search"></i></button>
+	                  </span>
+	                </div>
+	              </form>
+	            </div>
+	          </div>
+	          <div class="widget">
+	            <h5 class="widget-title line-bottom">تصنيفات <span class="text-theme-color-2">الدورات</span></h5>
+	            <div class="categories">
+	              <ul class="list list-border angle-double-right">
+	                <li class="{{ Request::input('category') == null ? 'active' : '' }}"><a href="{{ url('courses') }}">الكل <span>({{ count(\App\Models\Course::all()) }})</span></a></li>
+	              	@foreach (\App\Models\Category::all() as $category)
+		                <li class="{{ Request::input('category') == $category->id ? 'active' : '' }}">
+		                	<a href="{{ url('courses?category=' . $category->id ) }}">{{ $category->name }} <span>({{ $category->courses()->count() }})</span></a>
+		                </li>
+	              	@endforeach
+	              </ul>
+	            </div>
+	          </div>
 	        </div>
-	        <!-- Blog Masonry -->
 	      </div>
 	    </div>
 	    <div class="row">
 	      <div class="col-sm-12">
-	      	{{ $courses->render() }}
+	        <nav class="theme-colored">
+	        	{{ $courses->render() }}
+	        </nav>
 	      </div>
 	    </div>
 	  </div>
