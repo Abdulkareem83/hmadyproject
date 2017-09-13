@@ -24,7 +24,7 @@
               <div class="row">
                 <div class="form-group col-md-12 {{ $errors->has('password') ? 'has-error' : '' }}">
                   <label for="form_password">{{ trans('lang.password') }}</label>
-                  <input id="form_password" name="password" class="form-control" type="text">
+                  <input id="form_password" name="password" class="form-control" type="password">
                   @if ($errors->has('password'))
                       <span class="help-block">
                         {{ $errors->first('password') }}
