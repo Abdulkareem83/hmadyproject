@@ -16,7 +16,7 @@ Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'HomeCtrl@index')->name('home');
-Route::get('courses', 'CoursesCtrl@showCoursesPage')->name('home');
+Route::get('courses', 'CoursesCtrl@showCoursesPage')->name('courses');
 Route::get('courses/single/{id}', 'CoursesCtrl@showSingleCoursePage')->name('single-course');
 Route::group(['middleware' => 'auth'], function() {
     //
@@ -33,6 +33,12 @@ Route::group(['middleware' => 'auth'], function() {
     	Route::post('save-course', 'CoursesCtrl@saveCourse');
     	Route::get('courses/delete', 'CoursesCtrl@deleteCourse');
     	Route::get('courses/show/{id}', 'CoursesCtrl@showCourse')->name('show-course');
+
+        /* Course Module */
+        Route::get('categories/all', 'CategoryCtrl@index')->name('all-categories');
+        Route::get('categories/create', 'CategoryCtrl@createCategory')->name('create-category');
+        Route::post('store-category', 'CategoryCtrl@storeCategory');
+        Route::get('categories/delete', 'CategoryCtrl@deleteCategory');
 
     	/* Chapter Module */
     	Route::get('chapters/all/{courseId}', 'ChapterCtrl@index')->name('all-chapters');

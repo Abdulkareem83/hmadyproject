@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Auth;
 use Validator;
 use App\Models\Course;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CoursesCtrl extends Controller
@@ -46,9 +48,10 @@ class CoursesCtrl extends Controller
     {
     	$mainTitle = $this->mainTitle;
     	$title = "addNewCourse";
+        $categories = Category::all();
 
     	return view('admin.courses.create')
-    		->with(compact('mainTitle', 'title'));
+    		->with(compact('mainTitle', 'title', 'categories'));
     }
 
     /**
@@ -64,13 +67,14 @@ class CoursesCtrl extends Controller
     	$validator = Validator::make($request->all(), [
     			'name'	=> 'required|max:255',
     			'description' => 'required',
-    			'picture'	=> 'required|image'
+    			'picture'	=> 'required|image',
+                'categories' => 'required|array|exists:categories,id'
     		]);
-    	if($validator->fails()){
-    		return redirect()->back()
-    				->withInput()
-    				->withErrors($validator);
-    	}else{
+        if($validator->fails()){
+            return redirect()->back()
+                    ->withInput()
+                    ->withErrors($validator);
+        }else{
     		$this->_storeCourse($request);
     		return redirect('courses/all')
     				->with('success', 'missionCompleted');
@@ -89,14 +93,17 @@ class CoursesCtrl extends Controller
     {
     	$mainTitle = $this->mainTitle;
     	$title = "editCourse";
-    	$course = Course::where('teacher_id', '=', Auth::user()->id)
-    				->where('id', '=', $id)
-    				->first();
+        $categories = Category::all();
+        $course = Course::where('teacher_id', '=', Auth::user()->id)
+                    ->where('id', '=', $id)
+                    ->first();
+    	$selectCategories = $course->categories->pluck('id')->all();
+
     	if( is_null($course) ){
     		return redirect('/');
     	}
     	return view('admin.courses.create')
-    			->with(compact('mainTitle', 'title', 'course'));
+    			->with(compact('mainTitle', 'title', 'course', 'categories', 'selectCategories'));
     }
     
     /**
@@ -178,11 +185,17 @@ class CoursesCtrl extends Controller
      * @author Abdulkareem Mohammed <a.esawy.sapps@gmail.com>
      * @copyright Smart Applications Co. <www.smartapps-ye.com>
      */
-    public function showCoursesPage()
+    public function showCoursesPage(Request $request)
     {
         $mainTitle = "courses";
         $title = "all courses";
-        $courses = Course::paginate(10);
+        $courses = Course::select(DB::raw('DISTINCT courses.id, courses.name, picture, description'));
+        if ($request->has('category')) {
+            $courses->join('category_courses', 'category_courses.course_id', '=','courses.id')
+                ->where('category_courses.category_id', '=', $request->category);
+        }
+        $courses = $courses->paginate(10);
+
         return view('home.courses.index')
                 ->with(compact('title', 'mainTitle', 'courses'));
     }
@@ -229,7 +242,8 @@ class CoursesCtrl extends Controller
     	$course->name = $request->name;
     	$course->description = $request->description;
     	$course->teacher_id = Auth::user()->id;
-    	$course->save();
+        $course->save();
+    	$course->categories()->sync($request->categories);
     }
     
 }

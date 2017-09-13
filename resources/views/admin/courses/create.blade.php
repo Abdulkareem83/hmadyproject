@@ -2,6 +2,7 @@
 
 @section('head')
 	<link rel="stylesheet" type="text/css" href="{{ url('admin') }}/plugins/bootsnipp-file-input/bootsnipp-file-input.css">
+	<link rel="stylesheet" href="{{ url('admin') }}/bower_components/select2/dist/css/select2.min.css">
 @stop
 
 @section('content')
@@ -35,6 +36,25 @@
 						@if ($errors->has('description'))
 							<span class='help-block'>
 								{{ $errors->first('description') }}
+							</span>
+						@endif
+					</div>
+					<div class="form-group {{ $errors->has('categories') ? 'has-error' : '' }}">
+						<label>
+							{{ trans('lang.categories') }}
+						</label>
+						@if (count($categories))
+							<select name="categories[]" class="form-control select2" multiple="">
+								@foreach( $categories as $category )
+									<option value="{{ $category->id }}" {{ isset($course) ? (in_array($category->id, $selectCategories)? 'selected': '') : ''  }}>
+										{{ $category->name }}
+									</option>
+								@endforeach
+							</select>
+						@endif
+						@if ($errors->has('categories'))
+							<span class='help-block'>
+								{{ $errors->first('categories') }}
 							</span>
 						@endif
 					</div>
@@ -80,4 +100,11 @@
 
 @section('script')
 	<script type="text/javascript" src="{{ url('admin') }}/plugins/bootsnipp-file-input/bootsnipp-file-input.js"></script>
+	<!-- Select2 -->
+	<script src="{{ url('admin') }}/bower_components/select2/dist/js/select2.full.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.select2').select2();
+		});
+	</script>
 @stop

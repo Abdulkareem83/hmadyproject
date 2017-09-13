@@ -42,19 +42,21 @@
             </li>
           </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview {{ Request::segment(1) == 'categories' ? 'active' : '' }}">
           <a href="#">
             <i class="fa fa-pie-chart"></i>
-            <span>Charts</span>
+            <span>{{ trans('lang.categories') }}</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-            <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+            <li class="{{ Request::url() == route('all-categories') ? 'active' : '' }}">
+              <a href="{{ route('all-categories') }}"><i class="fa fa-circle-o"></i> {{ trans('lang.allCategories') }}</a>
+            </li>
+            <li class="{{ Request::url() == route('create-category') ? 'active' : '' }}">
+              <a href="{{ route('create-category') }}"><i class="fa fa-circle-o"></i> {{ trans('lang.addNewCategory') }}</a>
+            </li>
           </ul>
         </li>
         <li class="treeview">
